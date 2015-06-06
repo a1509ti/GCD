@@ -1,0 +1,24 @@
+#!/bin/bash
+
+gcd() {
+    a="$1"; b="$2"
+    while [ "$b" -ne 0 ]
+    do
+        c=$(expr "$a" % "$b"); a="$b"; b="$c"
+    done
+    echo "$a"
+    return 0
+}
+
+if [ $# -lt 2 ]; then
+    echo "too few arguments" 1>&2
+elif [ $# -gt 2 ]; then
+    echo "too many arguments" 1>&2
+else
+    expr "$1" + "$2" >/dev/null 2>&1
+    if [ $? -ge 2 ] || [ "$1" -lt 1 ] || [ "$2" -lt 1 ]; then
+        echo "arguments are not natural number" 1>&2
+    else
+        echo $(gcd "$1" "$2")
+    fi
+fi
