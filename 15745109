@@ -12,13 +12,17 @@ gcd() {
 
 if [ $# -lt 2 ]; then
     echo "too few arguments" 1>&2
+    exit 1
 elif [ $# -gt 2 ]; then
     echo "too many arguments" 1>&2
+    exit 1
 else
     expr "$1" + "$2" >/dev/null 2>&1
     if [ $? -ge 2 ] || [ "$1" -lt 1 ] || [ "$2" -lt 1 ]; then
         echo "arguments are not natural number" 1>&2
+        exit 1
     else
         echo $(gcd "$1" "$2")
+        exit 0
     fi
 fi
